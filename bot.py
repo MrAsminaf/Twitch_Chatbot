@@ -1,6 +1,7 @@
 from cfg import *
 import socket
 import re
+from commands import commands
 
 def send_message(message):
     s.send(bytes("PRIVMSG #" + NICK + " :" + message + "\r\n", "UTF-8"))
@@ -24,5 +25,6 @@ while True:
         message = CHAT_MSG.sub("", response)
         print(response)
 
-        if message.strip() == "!info":
-            send_message("My name is Adam. I'm 16 and I'm from Poland")
+        for command in commands:
+            if(message.strip() == command):
+                send_message(commands[command])
